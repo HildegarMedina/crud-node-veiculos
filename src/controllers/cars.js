@@ -18,11 +18,14 @@ module.exports = {
         if(verify.result) {
             const newCar = new Cars(req.body);
             const car = await newCar.save();
-            res.status(201).json();
+            res.status(201).json({
+                id: car._id
+            });
+        }else {
+            res.status(400).json({
+                message: `Field ${verify.value} is required`
+            });
         }
-        res.status(400).json({
-            message: `Field ${verify.value} is required`
-        });
     },
 
     getCar: async (req, res, next) => {
