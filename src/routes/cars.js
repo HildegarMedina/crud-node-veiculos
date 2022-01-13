@@ -13,5 +13,6 @@ router.get("/api/v1/cars/:id", getCarById);
 
 router.post("/api/v1/cars", newCar);
 
+router.put("/api/v1/cars/:id", updateCar);
 
 module.exports = router;
