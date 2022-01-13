@@ -21,8 +21,8 @@ module.exports = {
             }
             res.status(404).json();
         } catch (error) {
-            res.status(500).json({
-                "message": "invalid id"
+            res.status(400).json({
+                message: "invalid id"
             });
         }
     },
@@ -59,13 +59,12 @@ module.exports = {
                 const car = await Cars.findById(id);
                 if (!car) {
                     res.status(404).json({
-                        "message": "user not found"
+                        message: "car not found"
                     });
                 }
                 await Cars.findByIdAndUpdate(id, newCar);
                 res.status(200).json();
             } catch (error) {
-                console.log(error);
                 res.status(500).json({
                     message: "Server problem, check the connection to the database."
                 });
@@ -77,8 +76,28 @@ module.exports = {
         }
     },
 
-    DeleteCar: async (req, res, next) => {
-
+    deleteCar: async (req, res, next) => {
+        const { id } = req.params;
+        try {
+            const car = await Cars.findById(id);
+            if (!car) {
+                res.status(404).json({
+                    message: "car not found"
+                });
+            }
+        } catch (error) {
+            res.status(400).json({
+                message: "invalid id"
+            });
+        }
+        try {
+            await Cars.findByIdAndRemove(id);
+            res.status(200).json();
+        } catch (error) {
+            res.status(500).json({
+                message: "Server problem, check the connection to the database."
+            });
+        }
     },
 
 

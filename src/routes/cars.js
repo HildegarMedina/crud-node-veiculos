@@ -4,7 +4,7 @@ const {
     getCarById, 
     newCar, 
     updateCar, 
-    DeleteCar 
+    deleteCar 
 } = require('../controllers/cars');
 
 router.get("/api/v1/cars", getAllCars);
@@ -14,5 +14,7 @@ router.get("/api/v1/cars/:id", getCarById);
 router.post("/api/v1/cars", newCar);
 
 router.put("/api/v1/cars/:id", updateCar);
+
+router.delete("/api/v1/cars/:id", deleteCar);
 
 module.exports = router;
