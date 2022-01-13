@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon src/app.js",
-    "test": "mocha 'src/test/**/*.js' --recursive"
+    "test": "mocha 'src/test/**/*.test.js' --recursive"
   },
   "dependencies": {
     "chai": "^4.3.4",
