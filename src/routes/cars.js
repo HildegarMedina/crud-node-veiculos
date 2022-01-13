@@ -5,9 +5,11 @@ const {
     newCar, 
     updateCar, 
     DeleteCar 
-} = require('../controllers/veiculos');
+} = require('../controllers/cars');
 
-router.get("/api/v1/veiculos", getAllCars);
+router.get("/api/v1/cars", getAllCars);
+
+router.post("/api/v1/cars", newCar);
 
 
 module.exports = router;
