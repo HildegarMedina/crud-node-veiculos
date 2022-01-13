@@ -12,24 +12,41 @@ module.exports = {
         res.status(200).json(response);
     },
 
+    getCarById: async (req, res, next) => {
+        const {id} = req.params;
+        try {
+            const user = await Cars.findById(id);
+            if (user) {
+                res.status(200).json(user);
+            }
+            res.status(404).json();
+        } catch (error) {
+            res.status(500).json({
+                "message": "invalid id"
+            });
+        }
+    },
+
     newCar: async (req, res, next) => {
         const { placa, chassi, renavam, modelo, marca, ano } = req.body;
         const verify = verifyEmptyData({placa, chassi, renavam, modelo, marca, ano});
         if(verify.result) {
-            const newCar = new Cars(req.body);
-            const car = await newCar.save();
-            res.status(201).json({
-                id: car._id
-            });
+            try {
+                const newCar = new Cars(req.body);
+                const car = await newCar.save();
+                res.status(201).json({
+                    id: car._id
+                });
+            } catch (error) {
+                res.status(500).json({
+                    message: "Server problem, check the connection to the database."
+                });
+            }
         }else {
             res.status(400).json({
                 message: `Field ${verify.value} is required`
             });
         }
-    },
-
-    getCar: async (req, res, next) => {
-
     },
 
     updateCar: async (req, res, next) => {
