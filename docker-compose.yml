@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  crudveiculos:
+    build: .
+    volumes:
+      - ./src:/usr/src/src
+    environment:
+      - PORT=8000
+      - DB_URI=mongodb://db:27017/crudveiculos
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mongo
+    
+volumes:
+  mydata:
